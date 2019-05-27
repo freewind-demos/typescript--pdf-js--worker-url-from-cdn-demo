@@ -1,25 +1,29 @@
-import pdfjs, {PDFPageProxy} from 'pdfjs-dist';
+import pdfjs from 'pdfjs-dist';
+import {PDFDocumentProxy} from 'pdfjs-dist';
+import './node_modules/pdfjs-dist/web/pdf_viewer.css';
 
-function renderPage(page: PDFPageProxy) {
-  const scale = 1.5;
-  const viewport = page.getViewport(scale);
+const x = require('pdfjs-dist/web/pdf_viewer.js');
+console.log('### x:', Object.keys(x));
 
-  const canvas = document.getElementById('pdf-canvas') as HTMLCanvasElement;
-  const context = canvas.getContext('2d')!;
-  canvas.height = viewport.height;
-  canvas.width = viewport.width;
+const {PDFViewer} = x as any;
 
-  const renderContext = {
-    canvasContext: context,
-    viewport: viewport
-  };
-  page.render(renderContext);
+function renderInViewer(pdfDocument: PDFDocumentProxy) {
+  const pdfViewer = new PDFViewer({
+    container: document.getElementById('viewerContainer'),
+  });
+
+  document.addEventListener('pagesinit', function () {
+    // We can use pdfViewer now, e.g. let's change default scale.
+    pdfViewer.currentScaleValue = 'page-width';
+  });
+
+  pdfViewer.setDocument(pdfDocument);
 }
+
 
 async function loadPdf() {
   const pdf = await pdfjs.getDocument('http://localhost:46345/dummy.pdf').promise
-  const page = await pdf.getPage(1)
-  renderPage(page);
+  renderInViewer(pdf);
 }
 
 loadPdf();
