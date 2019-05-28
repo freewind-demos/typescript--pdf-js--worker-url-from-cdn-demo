@@ -2,10 +2,7 @@ import pdfjs from 'pdfjs-dist';
 import {PDFDocumentProxy} from 'pdfjs-dist';
 import './node_modules/pdfjs-dist/web/pdf_viewer.css';
 
-const x = require('pdfjs-dist/web/pdf_viewer.js');
-console.log('### x:', Object.keys(x));
-
-const {PDFViewer} = x as any;
+const {PDFViewer} = require('pdfjs-dist/web/pdf_viewer.js');
 
 function renderInViewer(pdfDocument: PDFDocumentProxy) {
   const pdfViewer = new PDFViewer({
