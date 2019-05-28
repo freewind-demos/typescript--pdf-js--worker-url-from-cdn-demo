@@ -11,7 +11,7 @@ function renderInViewer(pdfDocument: PDFDocumentProxy) {
 
   document.addEventListener('pagesinit', function () {
     // We can use pdfViewer now, e.g. let's change default scale.
-    pdfViewer.currentScaleValue = 'page-width';
+    // pdfViewer.currentScaleValue = 'page-width';
   });
 
   pdfViewer.setDocument(pdfDocument);
@@ -19,7 +19,7 @@ function renderInViewer(pdfDocument: PDFDocumentProxy) {
 
 
 async function loadPdf() {
-  const pdf = await pdfjs.getDocument('http://localhost:46345/dummy.pdf').promise
+  const pdf = await pdfjs.getDocument('http://localhost:46345/sample.pdf').promise
   renderInViewer(pdf);
 }
 
