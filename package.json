@@ -1,8 +1,7 @@
 {
   "scripts": {
-    "server": "http-server . -c-1 -p 46345 --cors",
-    "demo": "webpack-dev-server --open",
-    "bundle": "webpack --display-modules"
+    "predemo": "rm -rf ./dist && webpack && cp -rf ./big.pdf ./dist/big.pdf",
+    "demo": "http-server ./dist -c-1 --cors -o"
   },
   "dependencies": {
     "jquery": "3.4.1"

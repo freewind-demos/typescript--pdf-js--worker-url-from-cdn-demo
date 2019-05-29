@@ -1,13 +1,17 @@
-TypeScript "pdf.js" Viewer Demo
-===============================
+TypeScript "pdf.js" Disable Worker Demo
+========================================
 
-Use the provided viewer to view a pdf on page.
+在pdfjs中，为了性能考虑，要求我们一定要提供某种方式的worker（比如一个worker的url，或者shared worker的port），
+否则的话，会报错：
 
-注意：
-- 在`new PDFViewer`的时候，如果没有传入`viewer`选项，则它会使用`container`的第一个子元素，如果没有的话，在运行时会报错。
-- 在这个Demo中，没有针对“页面搜索文字”进行处理，该功能不能正常工作
+```
+No "GlobalWorkerOptions.workerSrc" specified.
+```
+
+但是在某些极端环境中，我们无法提供worker，终于找到了禁用worker的办法，就是给它一个错误的url，它获取不到的话，
+就会内部使用一个fake worker，利用浏览器的主线程来render。虽然慢，但是好在总算能用了。
 
 ```
 npm install
-npm run dev
+npm run demo
 ```
